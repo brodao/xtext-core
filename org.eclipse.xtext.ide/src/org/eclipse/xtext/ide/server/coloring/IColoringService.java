@@ -11,8 +11,9 @@ import static java.util.Collections.*;
 
 import java.util.List;
 
-import org.eclipse.lsp4j.ColoringInformation;
+import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.eclipse.xtext.ide.server.Document;
+import org.eclipse.xtext.ide.server.semanticHighlight.ISemanticHighlightingStyleToTokenMapper;
 import org.eclipse.xtext.resource.XtextResource;
 
 import com.google.inject.ImplementedBy;
@@ -23,7 +24,9 @@ import com.google.inject.ImplementedBy;
  * model.
  * 
  * @author akos.kitta - Initial contribution and API
+ * @deprecated use the {@link ISemanticHighlightingCalculator} and the {@link ISemanticHighlightingStyleToTokenMapper} instead.
  */
+@Deprecated
 @ImplementedBy(IColoringService.Noop.class)
 public interface IColoringService {
 
@@ -40,7 +43,7 @@ public interface IColoringService {
 	 *         resource. Must not return with {@code null}, but an empty list
 	 *         instead.
 	 */
-	List<? extends ColoringInformation> getColoring(XtextResource resource, Document document);
+	List<? extends org.eclipse.lsp4j.ColoringInformation> getColoring(XtextResource resource, Document document);
 
 	/**
 	 * NOOP {@link IColoringService coloring service} implementation. Always
@@ -51,7 +54,7 @@ public interface IColoringService {
 	public static class Noop implements IColoringService {
 
 		@Override
-		public List<? extends ColoringInformation> getColoring(XtextResource resource, Document document) {
+		public List<? extends org.eclipse.lsp4j.ColoringInformation> getColoring(XtextResource resource, Document document) {
 			return emptyList();
 		}
 
